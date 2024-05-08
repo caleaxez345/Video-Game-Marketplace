@@ -1,0 +1,30 @@
+<%- include('../partials/header.ejs')%>
+    <main class="item-detail-container">
+        <div class="item-detail">
+            <img class="game-details-img" src="<%= item.image %>" alt="<%= item.title %>">
+        </div>
+        <div class="item-detail">
+            <p class="item-detail-name"><%= item.title %></p>
+            <br>
+            <p>Condition: <%= item.condition %></p>
+            <br>
+            <p>Price: $<%= item.price %> | <%= item.totalOffers %> offers</p>
+            <br>
+            <p>Seller: <%= item.seller.firstName + ' ' + item.seller.lastName %></p>
+            <br>
+            <p><%= item.details %></p>
+            <%if(item.active) { %> 
+            <form method="POST" action="/items/<%= item.id %>/offers">
+                <input type="number" id="offerAmountInput" name="amount" type="number" min="0.01" step="0.01" placeholder="Enter amount offer" required>
+                <button type="submit" id="makeOfferBtn">Make an Offer</button>
+            </form>
+            <% } %>
+            <br>
+            <%if(item.active && item.totalOffers >= 1) { %>
+            <p id="highest-offer">Current Highest offer: $<%= item.highestOffer %></p>
+            <% } else if(item.active === false) { %>
+                <p id="unavailable-message">Unfortunately, this video game is no longer available.</p>
+                <% } %>
+        </div>
+    </main>
+<%- include('../partials/footer.ejs')%>

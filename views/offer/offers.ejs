@@ -1,0 +1,86 @@
+<%- include('../partials/header.ejs')%>
+    <main class="received-offer">
+        <% if(offers[0].item.active) { %>
+        <div class="offer-received-container">
+            <div class="offer-received-header">
+                    <p>Offers received for: <%= offers[0].item.title %> </p>
+                </div>
+                <div class="offer-received-box">
+                <div class="offer-received-header-row">
+                    <div class="offer-received-header-buyer">
+                        <p>Buyer</p>
+                    </div>
+                    <div class="offer-received-header-amount">
+                        <p>Amount</p>
+                    </div>
+                    <div class="offer-received-header-action">
+                        <p>Action</p>
+                    </div>
+                </div>
+                <% offers.forEach(offer=> { %>
+                    <div class="offer-received-row">
+                        <div class="offer-received-buyer">
+                            <p>
+                            <p>
+                                <%= offer.user.firstName %>
+                                <%= offer.user.lastName %>
+                            </p>
+                            </p>
+                        </div>
+                        <div class="offer-received-amount">
+                            <p>
+                                <%= offer.amount %>
+                            </p>
+                        </div>
+                        <div class="offer-received-action">
+                            <form method="POST" action="/items/<%= offer.item.id %>/offers/<%= offer.id %>/accept">
+                                <input type="hidden" name="offerer" value="<%= offer %>">
+                                <button type="submit" id="accept-offer-button">Accept</button>
+                            </form>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+        <% } else if(offers[0].item.active == false) { %>
+            <div class="offer-finalized-container">
+                <div class="offer-finalized-header">
+                        <p>Offers received for: <%= offers[0].item.title %> </p>
+                    </div>
+                    <div class="offer-finalized-box">
+                    <div class="offer-finalized-header-row">
+                        <div class="offer-finalized-header-buyer">
+                            <p>Buyer</p>
+                        </div>
+                        <div class="offer-finalized-header-amount">
+                            <p>Amount</p>
+                        </div>
+                        <div class="offer-finalized-header-status">
+                            <p>Action</p>
+                        </div>
+                    </div>
+                    <% offers.forEach(offer=> { %>
+                        <div class="offer-finalized-row">
+                            <div class="offer-finalized-buyer">
+                                <p>
+                                <p>
+                                    <%= offer.user.firstName %>
+                                    <%= offer.user.lastName %>
+                                </p>
+                                </p>
+                            </div>
+                            <div class="offer-finalized-amount">
+                                <p>
+                                    <%= offer.amount %>
+                                </p>
+                            </div>
+                            <div class="offer-finalized-status">
+                                <%= offer.status %>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        <% }; %>
+    </main>
+    <%- include('../partials/footer.ejs')%>

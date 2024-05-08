@@ -1,0 +1,36 @@
+<%- include('../partials/header.ejs')%>
+<main class="edit-container">
+    <div class="edit-item">
+        <p id="edit-title">Edit Your Listing</p>
+        <br>
+        <p>Feel free to make changes to your listed item.</p>
+    </div>
+    <div class="edit-item">
+        <form method = "POST" action= "/items/<%= item.id%>?_method=PUT" enctype="multipart/form-data">
+            <label for="condition">Condition</label>
+            <select id="condition" name="condition" required>
+                <option value="">&nbsp;</option>
+                <option value="New" <%= item.condition === 'New' ? 'selected' : '' %>>New</option>
+                <option value="Like New" <%= item.condition === 'Like New' ? 'selected' : '' %>>Like New</option> 
+                <option value="Very Good" <%= item.condition === 'Very Good' ? 'selected' : '' %>>Very Good</option>
+                <option value="Good" <%= item.condition === 'Good' ? 'selected' : '' %>>Good</option>
+                <option value="Other" <%= item.condition === 'Other' ? 'selected' : '' %>>Other</option>
+            </select>
+            <br><br>
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" value="<%= item.title %>" required>
+            <br><br>
+            <label for="price">Price</label>
+            <input type="number" id="price" step="any" name="price" value="<%= item.price %>" required>
+            <br><br>
+            <label for="details">Details</label>
+            <input type="text" id="details" name="details" value="<%= item.details %>" required>
+            <br><br>
+            <label for="image">Image</label>
+            <input type="file" id="image" name="image" accept=".jpeg, .png, .pdf" required>
+            <br><br>
+            <input type="submit" id="new-item-submit" value="Submit">
+        </form>
+    </div>
+</main>
+<%- include('../partials/footer.ejs')%>

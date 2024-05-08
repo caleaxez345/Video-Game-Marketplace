@@ -1,0 +1,17 @@
+<%- include('../partials/header.ejs')%>
+    <main class="items-container">
+        <% items.forEach(item=> { %>
+        <a href = "/items/<%= item.id%>">
+        <div class="item">
+                <img class="game-img" src="<%= item.image %>" alt="<%= item.title %>">
+                <div class="item-info">
+                    <p class="item-names"><%= item.title %></p>
+                    <p class="item-conditions"><%= item.condition %></p>
+                    <hr>
+                    <p class="price">$<%= item.price %> <span style="float:right"><%= item.totalOffers %> Offers</span></p>
+                </div>
+        </div>
+        </a>
+        <% }) %>
+    </main>
+    <%- include('../partials/footer.ejs')%>

@@ -1,0 +1,91 @@
+<%- include('../partials/header.ejs')%>
+    <main class="profile-container">
+        <div class="listing-box-container">
+            <div class="listing-header">
+                <p>My Listings</p>
+            </div>
+            <%if(items.length) {%>
+            <div class="listing-box">
+                <div class="header-row">
+                    <div class="header-item">
+                        <p>Item</p>
+                    </div>
+                    <div class="header-status">
+                        <p>Status</p>
+                    </div>
+                    <div class="header-action">
+                        <p>Action</p>
+                    </div>
+                </div>
+                <% items.forEach(item=> {%>
+                    <div class="item-row">
+                        <div class="item-name">
+                            <p>
+                                <a href='/items/<%= item.id%>'><p><%= item.title %></p></a>
+                            </p>
+                        </div>
+                        <div class="item-status">
+                            <p><%= item.active ? 'Active' : 'Inactive' %></p>
+                        </div>
+                        <div class="item-action">
+                            <% if(user && user._id.toString() === item.seller.toString()) { %>
+                            <form>
+                                    <button type="submit" formmethod="GET" formaction="/items/<%= item.id%>/edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                    <button type="submit" formmethod="POST" formaction="/items/<%= item.id%>?_method=DELETE"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                            </form>
+                            <%}%>
+                            <% if(item.totalOffers > 0) { %> 
+                            <form method="GET" action="/items/<%= item.id %>/offers">
+                                <button type="submit" class="viewOfferButton">View Offers</button>
+                            </form> 
+                            <%} else {%> 
+                                <form method="GET" action="/items/<%= item.id %>/offers">
+                                    <button type="submit" class="viewOfferButton" disabled>View Offers</button>
+                                </form> 
+                            <%}%>
+                        </div>
+                    </div>
+                    <%}); } else {%>
+                        <p id="no-items">You have not created any items</p>
+                    <%}%>
+            </div>
+        </div>
+        <br>
+        <div class="offer-container">
+            <div class="offer-header">
+                <p>My Offers</p>
+            </div>
+                <%if(offers.length) {%>
+                    <div class="offer-box">
+                        <div class="offer-header-row">
+                            <div class="offer-header-item">
+                                <p>Item</p>
+                            </div>
+                            <div class="offer-header-status">
+                                <p>Status</p>
+                            </div>
+                            <div class="offer-header-amount">
+                                <p>Amount</p>
+                            </div>
+                        </div>
+                        <% offers.forEach(offer=> {%>
+                            <div class="offer-row">
+                                <div class="offer-item-name">
+                                    <p>
+                                        <a href='/items/<%= offer.item.id%>'><p><%= offer.item.title %></p></a>
+                                    </p>
+                                </div>
+                                <div class="offer-item-status">
+                                   <p><%= offer.status %></p>
+                                </div>
+                                <div class="offer-item-amount">
+                                    <p> <%= offer.amount %></p>
+                                </div>
+                            </div>
+                            <%}); } else {%>
+                                <p id="no-offers">You have not made any offers</p>
+                            <%}%>
+            </div>
+        </div>
+    </main>
+ <%- include('../partials/footer.ejs')%>

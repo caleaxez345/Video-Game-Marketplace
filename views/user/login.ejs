@@ -1,0 +1,21 @@
+<%- include('../partials/header.ejs')%>
+<main class="login-container">
+    <div class="login">
+        <p id="login-info">Join Fellow Video Game Lovers!</p>
+        <br>
+        <p>to buy and sell video games</p>
+    </div>
+
+    <div class="login">
+        <form method = "POST" action= "/users/login">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" name="email" placeholder="email" required>
+            <br><br>
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" name="password" placeholder="password" required>
+            <input type="submit" id="login-submit" value="Login">
+        </form>
+    </div>
+
+</main>
+<%- include('../partials/footer.ejs')%>
